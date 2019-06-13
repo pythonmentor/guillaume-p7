@@ -8,6 +8,7 @@ import unicodedata
 import re
 
 #personnal modules
+from robot.stop_words import STOP_WORDS
 
 class ParseSentence (object) :
     """This class parses a sentence and gives back
@@ -35,11 +36,28 @@ class ParseSentence (object) :
 
         #replaces special characters by spaces
         self.sentence = re.sub(r'\W'," ",self.sentence)
-        #used for the test only
 
         #used for the test only
         return self.sentence
 
+    def parsing_words(self):
+        """This function parses the sentence with
+        the file stop_words, and removes the common
+        words used in french vocabulary"""
+
+        # split str into list
+        self.sentence = self.sentence.split()
+        
+        # Removing words belonging in STOP_WORDS
+        for x in STOP_WORDS:
+            while x in self.sentence :
+                self.sentence.remove(x)
+        
+        # changing list into str
+        self.sentence = " ".join(self.sentence)
+        
+        #used for the pytest only
+        return self.sentence
 
 if __name__ == '__main__' :
     pass

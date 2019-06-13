@@ -30,3 +30,17 @@ class TestParseSentence:
     def test_rm_accents(self, b, result):
         parser = ParseSentence(b)
         assert parser.rm_accents() == result
+    
+    #sentence test    
+    @pytest.mark.parametrize('c,result', [
+        ("bonjour grandpy  que sais tu sur la tour eiffel  ", 
+        "bonjour sais tour eiffel"),
+        ("salut grandpy   est ce que tu connais l adresse d openclassrooms  ",
+         "salut connais adresse openclassrooms"),
+        ("comment tu vas tu grandpy   ca va  bien o pas  ",
+        "")
+    ])
+
+    def test_parsing_words(self, c, result) :
+        parser = ParseSentence(c)
+        assert parser.parsing_words() == result
