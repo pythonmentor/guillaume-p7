@@ -20,11 +20,11 @@ class TestParseSentence:
     #sentence test    
     @pytest.mark.parametrize('b,result', [
         ("bonjour grandpy, que sais tu sur la tour eiffel ?", 
-        "bonjour grandpy  que sais tu sur la tour eiffel  "),
+        "bonjour grandpy  que sais tu sur la tour eiffel ?"),
         ("salut grandpy ! est-ce que tu connais l'adresse d'openclassrooms ?",
-         "salut grandpy   est ce que tu connais l adresse d openclassrooms  "),
+         "salut grandpy   est ce que tu connais l adresse d openclassrooms ?"),
         ("commènt%ù vas tu gràndpy^, ça va' bien o↓ pas ?",
-        "comment u vas tu grandpy   ca va  bien o pas  ")
+        "comment u vas tu grandpy   ca va  bien o pas ?")
     ])
 
     def test_rm_accents(self, b, result):
@@ -34,11 +34,19 @@ class TestParseSentence:
     #sentence test    
     @pytest.mark.parametrize('c,result', [
         ("bonjour grandpy  que sais tu sur la tour eiffel  ", 
-        "bonjour sais tour eiffel"),
-        ("salut grandpy   est ce que tu connais l adresse d openclassrooms  ",
-         "salut connais adresse openclassrooms"),
+        "tour eiffel"),
+        ("salut connais adresse openclassrooms",
+        "adresse openclassrooms"),
         ("comment tu vas tu grandpy   ca va  bien o pas  ",
-        "")
+        "Error"),
+        ("tuileries",
+        "tuileries"),
+        ("tour montparnasse",
+        "tour montparnasse"),
+        ("bonjour ca va grandpy moi ca va je cherche l adresse du jardin des plantes",
+        "jardin plantes"),
+        ("ou se trouve le champ de mars ? je veux savoir",
+        "champ mars")
     ])
 
     def test_parsing_words(self, c, result) :
