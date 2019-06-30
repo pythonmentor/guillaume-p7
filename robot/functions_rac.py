@@ -13,7 +13,7 @@ def quest_mark(liste):
         # if STOP_WORDS didn't removed everything
         # that would be a shame btw
         if len(liste) >= 1 :
-            for x in range(len(liste)):
+            for x, word in enumerate(liste):
 
                 if "?" in liste[x]:
 
@@ -104,5 +104,3 @@ def fix_sent(list_ans):
     if len(list_ans) == 1 :
         fix = list_ans[0][0]
         return fix
-
-                    

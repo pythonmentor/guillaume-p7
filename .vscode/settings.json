@@ -1,4 +1,4 @@
 {
-    "python.pythonPath": "/usr/bin/python3",
+    "python.pythonPath": "/home/guillaume/.local/share/virtualenvs/GrandPy-068iOAjb/bin/python",
     "python.linting.enabled": true
 }

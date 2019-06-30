@@ -7,13 +7,13 @@
 import unicodedata
 import re
 
-# personnal modules, deactivate for pytest
-#from stop_words import STOP_WORDS
-#from functions_rac import quest_mark, fix_sent
+#personnal modules, deactivate for pytest
+from stop_words import STOP_WORDS
+from functions_rac import quest_mark, fix_sent
 
 # personnal modules. Activate only for pytest
-from robot.stop_words import STOP_WORDS
-from robot.functions_rac import quest_mark, fix_sent
+#from robot.stop_words import STOP_WORDS
+#from robot.functions_rac import quest_mark, fix_sent
 
 class ParseSentence (object):
     """This class parses a sentence and gives back
@@ -87,11 +87,6 @@ class ParseSentence (object):
         #used for the pytest only
         return self.sentence
         
-
 if __name__ == '__main__':
-    #pass
-    K = ParseSentence("jean claude?")
-    K.lowers()
-    K.rm_accents()
-    print(K.parsing_words())
+    pass
 
