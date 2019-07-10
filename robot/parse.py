@@ -8,12 +8,12 @@ import unicodedata
 import re
 
 #personnal modules, deactivate for pytest
-from stop_words import STOP_WORDS
-from functions_rac import quest_mark, fix_sent
+#from stop_words import STOP_WORDS
+#from functions_rac import quest_mark, fix_sent
 
 # personnal modules. Activate only for pytest
-#from robot.stop_words import STOP_WORDS
-#from robot.functions_rac import quest_mark, fix_sent
+from robot.stop_words import STOP_WORDS
+from robot.functions_rac import quest_mark, fix_sent
 
 class ParseSentence (object):
     """This class parses a sentence and gives back

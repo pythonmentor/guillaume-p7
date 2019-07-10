@@ -13,7 +13,7 @@ def quest_mark(liste):
         # if STOP_WORDS didn't removed everything
         # that would be a shame btw
         if len(liste) >= 1 :
-            for x, word in enumerate(liste):
+            for x, y in enumerate(liste):
 
                 if "?" in liste[x]:
 
@@ -50,7 +50,7 @@ def quest_mark(liste):
 
                         if len(liste) >= 2:
                             key_wds.append(liste[x-1])
-                            key_wds.append(re.sub(r'[^a-zA-Z0-9]',"",liste[x]))
+                            key_wds.append(re.sub(r'[^a-zA-Z0-9]',"",y))
 
                             # clean liste and add key_words
                             liste = []
@@ -60,7 +60,7 @@ def quest_mark(liste):
                             return liste
 
                         elif liste == 1 :
-                            key_wds.append(re.sub(r'[^a-zA-Z0-9]',"",liste[x]))
+                            key_wds.append(re.sub(r'[^a-zA-Z0-9]',"",y))
 
                             # clean liste and add key_words
                             liste = []
@@ -104,3 +104,12 @@ def fix_sent(list_ans):
     if len(list_ans) == 1 :
         fix = list_ans[0][0]
         return fix
+
+def compile_list(liste, dic):
+    """ this function adds lattitude, longitude
+    and adress to liste from dic"""
+
+    liste.append(round(dic['geometry']['location']['lat'], 6))
+    liste.append(round(dic['geometry']['location']['lng'], 6))
+    liste.append(dic['formatted_address'])
+    return(liste)
