@@ -7,9 +7,6 @@
 import unicodedata
 import re
 
-#personnal modules, deactivate for pytest
-#from stop_words import STOP_WORDS
-#from functions_rac import quest_mark, fix_sent
 
 # personnal modules. Activate only for pytest
 from robot.stop_words import STOP_WORDS
@@ -59,12 +56,13 @@ class ParseSentence (object):
         
         # STOP_WORDS might remove everything
         # this algorithm will fix it
+        
         while True :
             #if self.sentence is empty, returns Error
             if "?" in self.sentence and len(self.sentence) ==1 :
                 self.sentence = [["Error"]]
                 break
-            elif not len(self.sentence) :
+            elif len(self.sentence) == 0:
                 self.sentence = [["Error"]]
                 break
             else :
@@ -89,4 +87,3 @@ class ParseSentence (object):
         
 if __name__ == '__main__':
     pass
-

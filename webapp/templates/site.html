@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8"/>
+        <link rel = "stylesheet" href = "style.css">
+        <title>Papy robot le connaisseur</title>
+    </head>
+
+    <body>
+        <header>
+            <p>
+                <img src="{{url_for('static', filename='images/bot.png')}}" />
+            </p>
+        </header>
+    
+        <section>
+            <p class="mainText">
+                Bonjour, je suis GrandPy, de quel endroit veux-tu que je te parle ?
+            </P>
+
+            <form class = "formReq" method="GET", action="/result">
+                <input name= "get_info", type="text"/>
+                <input type="submit" value="Sumbit">
+            </form>
+
+        </section>
+
+        <footer>
+            <p class="bottomText">
+
+            </p>
+        </footer>
+        
+        <script src="{{url_for('static', filename='js/processing.js')}}"></script>
+        
+    </body>
+
+</html>
+

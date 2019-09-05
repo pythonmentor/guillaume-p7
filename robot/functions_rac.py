@@ -10,8 +10,6 @@ def quest_mark(liste):
         #list keeping keywords for a short moment
         key_wds = []
 
-        # if STOP_WORDS didn't removed everything
-        # that would be a shame btw
         if len(liste) >= 1 :
             for x, y in enumerate(liste):
 
@@ -59,7 +57,7 @@ def quest_mark(liste):
                             #returning answer
                             return liste
 
-                        elif liste == 1 :
+                        elif len(liste) == 1 :
                             key_wds.append(re.sub(r'[^a-zA-Z0-9]',"",y))
 
                             # clean liste and add key_words
@@ -75,9 +73,6 @@ def quest_mark(liste):
                 # i want to know the location of xxxx
                 # and we'll save the last two words of the sentence
                 # and make a research on google maps
-                
-                # Note : Taking every gramatical way to write a sentence
-                # and regex it would be too complicated anyways.
                 elif "?" not in liste[x] and x+1 == len(liste):
 
                     if len(liste) >= 2:
@@ -93,7 +88,7 @@ def quest_mark(liste):
                     
                     if len(liste) == 1 :
                         return liste
-                    break
+                    
 
 def fix_sent(list_ans):
     fix=[]
@@ -105,11 +100,11 @@ def fix_sent(list_ans):
         fix = list_ans[0][0]
         return fix
 
-def compile_list(liste, dic):
+def compile_dic(dic_gmaps, dic_gpy):
     """ this function adds lattitude, longitude
-    and adress to liste from dic"""
+    and adress to dic_gpy from dic_gmaps"""
 
-    liste.append(round(dic['geometry']['location']['lat'], 6))
-    liste.append(round(dic['geometry']['location']['lng'], 6))
-    liste.append(dic['formatted_address'])
-    return(liste)
+    dic_gpy["latitude"] = dic_gmaps['geometry']['location']['lat']
+    dic_gpy["longitude"] = dic_gmaps['geometry']['location']['lng']
+    dic_gpy['adress'] = dic_gmaps['formatted_address']
+    return(dic_gpy)

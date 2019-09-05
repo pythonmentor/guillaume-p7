@@ -6,19 +6,15 @@
 
 # import modules
 import os 
+from random import choice
 
 import googlemaps
 from mediawiki import MediaWiki
 
-
-# personnal modules, deactivate for pytest
-#from parse import ParseSentence
-#from functions_rac import compile_list
-
 # personnal modules, activate only for pytest
 from robot.parse import ParseSentence
-from robot.functions_rac import compile_list
-
+from robot.functions_rac import compile_dic
+from robot.gen_answers import generic_loc_found, generic_no_answer
 
 class ResearchLoc(object):
     """This class returns a formated adress
@@ -35,63 +31,61 @@ class ResearchLoc(object):
         # save tag words on self.sentence
         self.sentence=p.parsing_words()
         
-        # result is the answer from googlemaps
         # self.result is a dictionnary
-        self.result = ""
-    
-    def getting_data(self):
-        """this function gets data from googlemaps
-        using self.sentence and saves it on
-        self.data"""
+        self.result = {}
 
-        # creating googlemaps client
-        gmaps = googlemaps.Client(key = os.environ.get('BACKEND_KEY', ""))
-        returned_list = gmaps.geocode(self.sentence)
-        self.result = returned_list[0]
+    def return_answer(self):
+        """this function returns a dictionnary
+        containing {'result' : 1, 'commentary' : "sentence from bot",
+        'latitude' : number,'longitude' : number, 
+        "adress" : "info", "summary" : "text", "link_wiki" : "url"}
+        1 = result found, 0 = not found. 
+        If 1 appears, there won't be latt, lng,
+        neither summary"""
 
-    def return_adress_info(self):
-        """ this function returns lattitude and longitude 
-        of the desired location on a list as following :
-        [lattitude, longitude, adress]"""
+        # if result from parse is null
+        if self.sentence == "Error":
+            self.result['result'] = 0
+            self.result['commentary'] = choice(generic_no_answer)
         
-        #list that will be returned
-        adress_info = []
+        # if there is a result
+        else :
+            # creating googlemaps client
+            gmaps = googlemaps.Client(key = os.environ.get("BACKEND_KEY", ""))
+            returned_list = gmaps.geocode(self.sentence)
 
-        # using function compile_list, found
-        # in file functions_rac
-        compile_list(adress_info, self.result)
+            # if result is empty, we're returning a message
+            # and a number that will let ajax know
+            if not returned_list:
+                self.result['result'] = 0
+                self.result['commentary'] = choice(generic_no_answer)
+            # answers = 0
+            else :
+                #creating local var that will display first googlemaps answer
+                best_result = returned_list[0]
 
-        # returning adress_info
-        return adress_info
-    
-    def wiki_info(self):
-        """ this functions takes lattitude and longitude 
-        and returns a summary and a link of the nearest 
-        location"""
+                compile_dic(best_result, self.result)
 
-        # loc is a local list that will provide informations
-        # for wikipedia
-        loc = []
-        # wiki result will contain a summary and a link to
-        # the wikipedia page relating this information
-        wiki_result = []
+                wikipedia = MediaWiki(lang='fr')
+                t = wikipedia.geosearch(latitude=self.result["latitude"], \
+                    longitude=self.result["longitude"])
+                # if wiki does not have stories regarding that place
+                if not t:
+                    self.result['result'] = 0
+                    self.result['commentary'] = choice(generic_loc_found)
+                
+                # if wiki has full info
+                else:
+                    self.result['result'] = 1
+                    self.result['commentary'] = choice(generic_loc_found)
 
-        # gather informations from self.result
-        loc.append(self.result['geometry']['location']['lat'])
-        loc.append(self.result['geometry']['location']['lng'])
+                    p = wikipedia.page(t[0])
+                    self.result["summary"] = p.summary
+                    self.result["link_wiki"] = p.url
+        return self.result
 
-        wikipedia = MediaWiki(lang='fr')
-        t = wikipedia.geosearch(latitude=loc[0], longitude=loc[1])
-
-        p = wikipedia.page(t[0])
-        wiki_result.append(p.summary)
-        # links ne marche pas pour le moment
-        wiki_result.append(p.url)
-
-        return wiki_result
+        
 
 if __name__ == '__main__':
-    pass
-
-        
-        
+    p = ResearchLoc("paris ?")
+    print(p.return_answer())
