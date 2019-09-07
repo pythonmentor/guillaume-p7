@@ -11,8 +11,6 @@ import pytest
 def test_wiki_info_does_its_job(monkeypatch):
     place = 'doesn t really matter'
     fake_parsed = "random location"
-
-    random_info = "key_code"
     example_info_full = [{
         "geometry" : {
             "location" : {
@@ -21,27 +19,25 @@ def test_wiki_info_does_its_job(monkeypatch):
                 "lng" : 300
             }   
         },
-        "formatted_adress" : "adress random"
+        "formatted_address" : "adress random"
     }]
 
     example_wiki_sites = ["site1"]
-    example_place_info = {
-            "summary" : "text of the place",
-            "link_wiki" : "url"
-    }
+
+    #{
+    #        "summary" : "text of the place",
+    #        "link_wiki" : "url"
+    #}
 
     fake_result = {"result" : 0, 'commentary' :"Oh, je vois, Je connais cet endroit", \
         'latitude' : 60, 'longitude' : 300, 'adress' : "adress random", \
-            'summary' : "text of the place", "link_wiki" : "url"
+            'summary' : "text of the place", "link_wiki" : "link_wiki"
     }
 
     # mock for googlemaps mod
     class Fakegooglemaps:
-        def __init__(self):
+        def __init__(self, key):
             pass
-
-        def Client(self, key):
-            return random_info
 
         def geocode(self, strings):
             return example_info_full
@@ -49,18 +45,22 @@ def test_wiki_info_does_its_job(monkeypatch):
     # mock for MediaWiki mod
     class FakeMediaWiki:
         def __init__(self, lang):
-            pass
+            self.summary = "text of the place"
+            self.url = "link_wiki"
         
         def geosearch(self, latitude, longitude):
             return example_wiki_sites
         
         def page(self, fake_title):
-            return example_place_info
+            return self
+
+    def fake_choice(liste):
+        return liste[0]
     
 
-
+    monkeypatch.setattr("random.choice", fake_choice)
     monkeypatch.setattr('robot.getting_loc.MediaWiki', FakeMediaWiki)
-    monkeypatch.setattr('robot.getting_loc.googlemaps', Fakegooglemaps)
+    monkeypatch.setattr('robot.getting_loc.googlemaps.Client', Fakegooglemaps)
 
     p = ResearchLoc(place)
     p.sentence = fake_parsed

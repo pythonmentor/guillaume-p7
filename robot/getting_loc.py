@@ -87,5 +87,4 @@ class ResearchLoc(object):
         
 
 if __name__ == '__main__':
-    p = ResearchLoc("paris ?")
-    print(p.return_answer())
+    pass

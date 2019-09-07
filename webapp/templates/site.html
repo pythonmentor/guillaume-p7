@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset = "utf-8"/>
-        <link rel = "stylesheet" href = "style.css">
+        <link rel = "stylesheet" href = "{{url_for('static', filename='css/style.css')}}">
         <title>Papy robot le connaisseur</title>
     </head>
 
@@ -18,8 +18,8 @@
                 Bonjour, je suis GrandPy, de quel endroit veux-tu que je te parle ?
             </P>
 
-            <form class = "formReq" method="GET", action="/result">
-                <input name= "get_info", type="text"/>
+            <form class="formReq" id="formReq" method="POST">
+                <input name= "get_info", type="text", id = "get_info">
                 <input type="submit" value="Sumbit">
             </form>
 
