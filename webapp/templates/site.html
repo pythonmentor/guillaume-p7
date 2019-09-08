@@ -22,6 +22,8 @@
                 <input name= "get_info", type="text", id = "get_info">
                 <input type="submit" value="Sumbit">
             </form>
+            <p id="answer">
+            </p>
 
         </section>
 
@@ -31,7 +33,11 @@
             </p>
         </footer>
         
+        <!-- script catching form -->
         <script src="{{url_for('static', filename='js/processing.js')}}"></script>
+
+        <!-- Gmaps API -->
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ FRONT_KEY }}&language=fr"></script>
         
     </body>
 

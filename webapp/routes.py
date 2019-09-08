@@ -1,3 +1,4 @@
+import os
 import flask
 
 from robot.getting_loc import ResearchLoc
@@ -7,7 +8,7 @@ app = flask.Flask(__name__)
 
 @app.route("/")
 def index():
-    return flask.render_template("site.html")
+    return flask.render_template("site.html",FRONT_KEY=os.environ.get('FRONT_KEY'))
 
 @app.route("/ajax", methods = ["POST"])
 def ajax():
@@ -15,7 +16,6 @@ def ajax():
         get_info = flask.request.form["get_info"]
         parsing = ResearchLoc(get_info)
         dico = parsing.return_answer()
-        print(dico)
         return flask.jsonify(dico)
     
     except:

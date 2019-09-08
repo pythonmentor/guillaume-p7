@@ -29,7 +29,7 @@ def test_wiki_info_does_its_job(monkeypatch):
     #        "link_wiki" : "url"
     #}
 
-    fake_result = {"result" : 0, 'commentary' :"Oh, je vois, Je connais cet endroit", \
+    fake_result = {"result" : 2, 'commentary' :"Oh, je vois, Je connais cet endroit", \
         'latitude' : 60, 'longitude' : 300, 'adress' : "adress random", \
             'summary' : "text of the place", "link_wiki" : "link_wiki"
     }
@@ -53,12 +53,12 @@ def test_wiki_info_does_its_job(monkeypatch):
         
         def page(self, fake_title):
             return self
-
+    
     def fake_choice(liste):
         return liste[0]
     
 
-    monkeypatch.setattr("random.choice", fake_choice)
+    monkeypatch.setattr('random.choice', fake_choice)
     monkeypatch.setattr('robot.getting_loc.MediaWiki', FakeMediaWiki)
     monkeypatch.setattr('robot.getting_loc.googlemaps.Client', Fakegooglemaps)
 

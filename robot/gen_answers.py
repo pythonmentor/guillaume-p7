@@ -8,7 +8,5 @@ generic_loc_found = ["Oh, je vois, Je connais cet endroit",
 "Oui, je connais ce lieux",
 "Cela me dit quelque chose"]
 
-wiki_error = {"result" : 0, 'commentary' :"Oh, je vois, Je connais cet endroit", \
-        'latitude' : 60, 'longitude' : 300, 'adress' : "adress random", \
-            'summary' : "text of the place", "link_wiki" : "link_wiki"
-    }
+wiki_error = {"result" : 0, 'commentary' :"Pour une raison obscure, la recherche \
+        n'a pas abouti"}

@@ -21,6 +21,18 @@ function ajaxPost(url, data, callback, isJson) {
     req.send(data);
 }
 
+function initMap(lat, lng, id) {
+    var location = new google.maps.LatLng(lat, lng);
+    var mapCanvas = document.getElementById(id);
+    var mapOptions = {
+        center: location,
+        zoom: 16,
+        panControl: false,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    var map = new google.maps.Map(mapCanvas, mapOptions);
+
+}
 
 var form = document.querySelector("#formReq");
 
@@ -29,6 +41,42 @@ form.addEventListener("submit", function (e) {
     let data = new FormData(formReq);
     ajaxPost("ajax", data, function (response) {
         let data = JSON.parse(response);
-        console.log(data);
+        var repGpy = document.createElement("li"); 
+        repGpy.id = "repGpy"; 
+        repGpy.appendChild(document.createTextNode(data["commentary"])); 
+        document.getElementById("answer").appendChild(repGpy); 
+        
+        // Adding address infos
+        if (data["result"]>=1) {
+            var address = document.createElement("li"); 
+            address.id = "address"; 
+            address.appendChild(document.createTextNode("Ce lieu se situe à cette adresse : "+ data["adress"])); 
+            document.getElementById("answer").appendChild(address);
+
+            // creating a new var
+            var gmap = document.createElement("li");
+            gmap.id = data["adress"];
+            gmap.style = "width: 500px; height: 500px;";
+            document.getElementById("answer").appendChild(gmap);
+
+            initMap(data["latitude"], data["longitude"], data["adress"]);
+            
+        }
+
+        // Adding wiki infos and url
+        if (data["result"]===2) {
+            // adding summary
+            var wikiInfo = document.createElement("li");
+            wikiInfo.id = "wiki";
+            wikiInfo.appendChild(document.createTextNode(data["summary"]));
+            document.getElementById("answer").appendChild(wikiInfo);
+
+            // adding url of wikipedia
+            var wikiLink = document.createElement("a");
+            wikiLink.id = "url";
+            wikiLink.href = data["link_wiki"]
+            wikiLink.appendChild(document.createTextNode("Voici un lien vers Wikipédia"));
+            document.getElementById("answer").appendChild(wikiLink);
+        }
     })
 });

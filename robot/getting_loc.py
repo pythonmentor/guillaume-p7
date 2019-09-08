@@ -6,7 +6,7 @@
 
 # import modules
 import os 
-from random import choice
+import random
 
 import googlemaps
 from mediawiki import MediaWiki
@@ -36,17 +36,18 @@ class ResearchLoc(object):
 
     def return_answer(self):
         """this function returns a dictionnary
-        containing {'result' : 1, 'commentary' : "sentence from bot",
+        containing {'result' : 2, 'commentary' : "sentence from bot",
         'latitude' : number,'longitude' : number, 
         "adress" : "info", "summary" : "text", "link_wiki" : "url"}
-        1 = result found, 0 = not found. 
-        If 1 appears, there won't be latt, lng,
+        2 = result found, wiki found,
+        1 = result found no wiki, 0 = not found. 
+        If 0 appears, there won't be latt, lng,
         neither summary"""
 
         # if result from parse is null
         if self.sentence == "Error":
             self.result['result'] = 0
-            self.result['commentary'] = choice(generic_no_answer)
+            self.result['commentary'] = random.choice(generic_no_answer)
         
         # if there is a result
         else :
@@ -58,7 +59,7 @@ class ResearchLoc(object):
             # and a number that will let ajax know
             if not returned_list:
                 self.result['result'] = 0
-                self.result['commentary'] = choice(generic_no_answer)
+                self.result['commentary'] = random.choice(generic_no_answer)
             # answers = 0
             else :
                 #creating local var that will display first googlemaps answer
@@ -71,13 +72,13 @@ class ResearchLoc(object):
                     longitude=self.result["longitude"])
                 # if wiki does not have stories regarding that place
                 if not t:
-                    self.result['result'] = 0
-                    self.result['commentary'] = choice(generic_loc_found)
+                    self.result['result'] = 1
+                    self.result['commentary'] = random.choice(generic_loc_found)
                 
                 # if wiki has full info
                 else:
-                    self.result['result'] = 1
-                    self.result['commentary'] = choice(generic_loc_found)
+                    self.result['result'] = 2
+                    self.result['commentary'] = random.choice(generic_loc_found)
 
                     p = wikipedia.page(t[0])
                     self.result["summary"] = p.summary
