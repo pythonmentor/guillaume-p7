@@ -5,7 +5,7 @@ background-color: white;
 }
 
 header {
-  padding-top: 50px;
+  padding-top: 20px;
   background-color: rgba(201, 188, 188, 0.712);
 }
   .imageBot {
@@ -15,11 +15,11 @@ header {
 
 
 body
-{background-color: rgba(201, 188, 188, 0.712); /* Le fond de la page sera noir */
-color: black; /* Le texte de la page sera blanc */}
+{background-color: rgba(201, 188, 188, 0.712); 
+color: black;}
 
 body {
-    padding-top: 50px;
+    padding-top: 20px;
   }
   .mainText {
     font-family: "Times New Roman", Times, serif;
@@ -45,7 +45,7 @@ body {
     padding: 10px 15px;
     width: 500px;
     height: 500px;
-    margin: 30px;
+    margin: 20px;
   }
   #wikiInf {
     padding: 10px 15px;
@@ -55,11 +55,12 @@ body {
     padding: 10px 15px;
     text-align: left;
   }
-  /* On screens that are 992px or less, set the background color to blue */
+  /* On screens that are 600px or less */
 @media screen and (max-width: 600px) {
   .map {
     width: 250px;
     height: 250px;
+    /* also change padding and margin */
   }
 }
   
