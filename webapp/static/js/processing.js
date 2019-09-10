@@ -21,9 +21,9 @@ function ajaxPost(url, data, callback, isJson) {
     req.send(data);
 }
 
-function initMap(lat, lng, id) {
+function initMap(lat, lng) {
     var location = new google.maps.LatLng(lat, lng);
-    var mapCanvas = document.getElementById(id);
+    var mapCanvas = document.querySelector(".map:last-of-type");
     var mapOptions = {
         center: location,
         zoom: 16,
@@ -42,9 +42,9 @@ form.addEventListener("submit", function (e) {
     ajaxPost("ajax", data, function (response) {
         let data = JSON.parse(response);
         var repGpy = document.createElement("li"); 
-        repGpy.id = "repGpy"; 
+        repGpy.id = "repGpy";
         repGpy.appendChild(document.createTextNode(data["commentary"])); 
-        document.getElementById("answer").appendChild(repGpy); 
+        document.getElementById("answer").appendChild(repGpy);
         
         // Adding address infos
         if (data["result"]>=1) {
@@ -55,11 +55,10 @@ form.addEventListener("submit", function (e) {
 
             // creating a new var
             var gmap = document.createElement("li");
-            gmap.id = data["adress"];
-            gmap.style = "width: 500px; height: 500px;";
+            gmap.className = "map";
             document.getElementById("answer").appendChild(gmap);
 
-            initMap(data["latitude"], data["longitude"], data["adress"]);
+            initMap(data["latitude"], data["longitude"]);
             
         }
 
@@ -67,13 +66,14 @@ form.addEventListener("submit", function (e) {
         if (data["result"]===2) {
             // adding summary
             var wikiInfo = document.createElement("li");
-            wikiInfo.id = "wiki";
+            wikiInfo.id = "wikiInf";
             wikiInfo.appendChild(document.createTextNode(data["summary"]));
             document.getElementById("answer").appendChild(wikiInfo);
+            
 
             // adding url of wikipedia
             var wikiLink = document.createElement("a");
-            wikiLink.id = "url";
+            wikiLink.id = "urlWiki";
             wikiLink.href = data["link_wiki"]
             wikiLink.appendChild(document.createTextNode("Voici un lien vers Wikipédia"));
             document.getElementById("answer").appendChild(wikiLink);

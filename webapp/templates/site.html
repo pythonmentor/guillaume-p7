@@ -2,14 +2,23 @@
 <html>
     <head>
         <meta charset = "utf-8"/>
-        <link rel = "stylesheet" href = "{{url_for('static', filename='css/style.css')}}">
         <title>Papy robot le connaisseur</title>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+        crossorigin="anonymous">
+
+         <!-- Custom styles for this template -->
+        <link href="{{url_for('static', filename='css/style.css')}}" 
+        type="text/css "rel="stylesheet">
+        
     </head>
 
     <body>
         <header>
             <p>
-                <img src="{{url_for('static', filename='images/bot.png')}}" />
+                <img src="{{url_for('static', filename='images/botText.png')}}" class="imageBot"/>
             </p>
         </header>
     
@@ -22,7 +31,7 @@
                 <input name= "get_info", type="text", id = "get_info">
                 <input type="submit" value="Sumbit">
             </form>
-            <p id="answer">
+            <p id="answer" class="answery">
             </p>
 
         </section>
