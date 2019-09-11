@@ -23,4 +23,4 @@ def ajax():
         return flask.jsonify(wiki_error)
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run()
