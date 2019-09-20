@@ -78,5 +78,7 @@ form.addEventListener("submit", function (e) {
             wikiLink.appendChild(document.createTextNode("Voici un lien vers Wikipédia"));
             document.getElementById("answer").appendChild(wikiLink);
         }
+        let element = document.querySelector("section li:last-of-type");
+        element.scrollIntoView();
     })
 });

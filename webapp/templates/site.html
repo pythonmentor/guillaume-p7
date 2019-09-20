@@ -15,9 +15,6 @@
                 <img src="{{url_for('static', filename='images/botText.png')}}" class="imageBot"/>
                 <img src="{{url_for('static', filename='images/botText_small.png')}}" class="imageBotS"/>
             </p>
-        </header>
-    
-        <section>
             <p class="mainText">
                 Bonjour, je suis GrandPy, de quel endroit veux-tu que je te parle ?
             </P>
@@ -25,8 +22,9 @@
             <form class="formReq" id="formReq" method="POST">
                 <input name= "get_info", type="text", id = "get_info">
                 <input type="submit" value="Sumbit">
-            </form>
-            
+        </header>
+    
+        <section>            
             <p id="answer">
             </p>
         </section>
