@@ -81,7 +81,7 @@ class ResearchLoc(object):
                     self.result['commentary'] = random.choice(generic_loc_found)
 
                     p = wikipedia.page(t[0])
-                    self.result["summary"] = p.summary
+                    self.result["summary"] = p.summary[:250] + "..."
                     self.result["link_wiki"] = p.url
         return self.result
 
