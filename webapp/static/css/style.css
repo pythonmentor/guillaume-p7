@@ -12,28 +12,29 @@ header {
     background-color: rgba(201, 188, 188, 0.712);
     padding: 10px 15px;
   }
+  .imageBotS {
+    display:none;
+  }
 
 
 body
 {background-color: rgba(201, 188, 188, 0.712); 
 color: black;}
 
-body {
-    padding-top: 20px;
-  }
   .mainText {
     font-family: "Times New Roman", Times, serif;
     font-size: 20px;
-    padding: 10px 15px;
+    padding: 1px 10px;
     text-align: left;
   }
 
   
   .formReq {
-    padding: 10px 15px;
+    padding: 1px 10px;
     text-align: left;
   }
   #repGpy {
+    margin-top: 70px;
     padding: 10px 15px;
     text-align: left;
   }
@@ -52,7 +53,7 @@ body {
     text-align: left;
   }
   #urlWiki {
-    padding: 10px 15px;
+    padding: 10px 45px;
     text-align: left;
   }
   /* On screens that are 600px or less */
@@ -62,7 +63,15 @@ body {
     height: 250px;
     /* also change padding and margin */
   }
+  .imageBot {
+    display:none;
+  }
+  .imageBotS {
+    display:inline-block;
+  }
+  #repGpy {
+    margin-top: 50px;
+    padding: 10px 15px;
+    text-align: left;
+  }
 }
-  
-  
-  

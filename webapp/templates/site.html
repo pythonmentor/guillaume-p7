@@ -11,8 +11,9 @@
 
     <body>
         <header>
-            <p>
+            <p class="imageGpy">
                 <img src="{{url_for('static', filename='images/botText.png')}}" class="imageBot"/>
+                <img src="{{url_for('static', filename='images/botText_small.png')}}" class="imageBotS"/>
             </p>
         </header>
     
@@ -28,14 +29,8 @@
             
             <p id="answer">
             </p>
-
         </section>
 
-        <footer>
-            <p class="bottomText">
-
-            </p>
-        </footer>
         
         <!-- script catching form -->
         <script src="{{url_for('static', filename='js/processing.js')}}"></script>
