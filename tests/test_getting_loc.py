@@ -5,7 +5,7 @@
 
 from robot.getting_loc import ResearchLoc
 from robot.functions_rac import compile_dic
-from robot.gen_answers import generic_loc_found, generic_no_answer
+from robot.gen_answers import GENERIC_LOC_FOUND, GENERIC_NO_ANSWER
 import pytest
 
 def test_wiki_info_does_its_job(monkeypatch):
@@ -17,7 +17,7 @@ def test_wiki_info_does_its_job(monkeypatch):
                 "lat" : 60
             ,
                 "lng" : 300
-            }   
+            }
         },
         "formatted_address" : "adress random"
     }]
@@ -31,8 +31,7 @@ def test_wiki_info_does_its_job(monkeypatch):
 
     fake_result = {"result" : 2, 'commentary' :"Oh, je vois, Je connais cet endroit", \
         'latitude' : 60, 'longitude' : 300, 'adress' : "adress random", \
-            'summary' : "text of the place", "link_wiki" : "link_wiki"
-    }
+            'summary' : "text of the place...", "link_wiki" : "link_wiki"}
 
     # mock for googlemaps mod
     class Fakegooglemaps:
@@ -47,16 +46,16 @@ def test_wiki_info_does_its_job(monkeypatch):
         def __init__(self, lang):
             self.summary = "text of the place"
             self.url = "link_wiki"
-        
+
         def geosearch(self, latitude, longitude):
             return example_wiki_sites
-        
+
         def page(self, fake_title):
             return self
-    
+
     def fake_choice(liste):
         return liste[0]
-    
+
 
     monkeypatch.setattr('random.choice', fake_choice)
     monkeypatch.setattr('robot.getting_loc.MediaWiki', FakeMediaWiki)
@@ -65,4 +64,3 @@ def test_wiki_info_does_its_job(monkeypatch):
     p = ResearchLoc(place)
     p.sentence = fake_parsed
     assert p.return_answer() == fake_result
-    
