@@ -24,7 +24,7 @@ section {
   flex-grow: 1;
   margin: 5px;
   overflow-y: auto;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 170px);
 }
   .mainText {
     font-family: "Times New Roman", Times, serif;
@@ -65,11 +65,17 @@ section {
     padding: 10px 45px;
     text-align: left;
   }
-
+  .addInfos {
+  font-family:"Times New Roman", Times, serif;
+  font-size:15px;
+  text-align:right;
+  padding: 1px 10px;
+  padding-right:20px;
+  }
   /* On screens that are 600px or less */
 @media screen and (max-width: 600px) {
   section {
-  height: calc(100vh - 80px);
+  height: calc(100vh - 130px);
   }
   .map {
     width: 250px;
@@ -90,5 +96,10 @@ section {
     margin-top: 50px;
     padding: 10px 15px;
     text-align: left;
+  }
+  .addInfos {
+  padding: 1px 1px;
+  padding-right: 10px;
+  font-size:10px;
   }
 }
